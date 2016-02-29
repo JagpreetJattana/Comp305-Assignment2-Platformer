@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour {
 		}
 
 		set {
+            if (this._scoreValue > 90) {
+                this._winGame();
+            }
 			this._scoreValue = value;
 			this.ScoreLabel.text = "Score: " + this._scoreValue;
 		}
@@ -41,7 +44,8 @@ public class GameController : MonoBehaviour {
 	public Text ScoreLabel;
 	public Text GameOverLabel;
 	public Text HighScoreLabel;
-	public Button RestartButton;
+    public Text WinGameLabel;
+    public Button RestartButton;
   //  public GameObject ring;
 
 	// Use this for initialization
@@ -64,6 +68,7 @@ public class GameController : MonoBehaviour {
 		this.GameOverLabel.gameObject.SetActive (false);
 		this.HighScoreLabel.gameObject.SetActive (false);
 		this.RestartButton.gameObject.SetActive(false);
+        this.WinGameLabel.gameObject.SetActive(false);
 	}
 
 	private void _endGame() {
@@ -76,9 +81,20 @@ public class GameController : MonoBehaviour {
        // this.ring.gameObject.SetActive(false);
 	}
 
-	// PUBLIC METHODS
+    private void _winGame()
+    {
+        this.HighScoreLabel.text = "High Score: " + this._scoreValue;
+       // this.GameOverLabel.gameObject.SetActive(true);
+       // this.HighScoreLabel.gameObject.SetActive(true);
+        this.LivesLabel.gameObject.SetActive(false);
+        this.WinGameLabel.gameObject.SetActive(true);
+        this.ScoreLabel.gameObject.SetActive(false);
+        this.RestartButton.gameObject.SetActive(true);
+        // this.ring.gameObject.SetActive(false);
+    }
+    // PUBLIC METHODS
 
-	public void RestartButtonClick() {
+    public void RestartButtonClick() {
 		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 	}
 }

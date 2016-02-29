@@ -35,8 +35,8 @@ public class EnemyController : MonoBehaviour {
     }
 
     //Private methods
-    private void _restart() {
-        this._transform.position = new Vector3(840f,330f,0);
+    public void _restart() {
+        this._transform.position = new Vector3(2128f,640f,0);
 
     }
     }
