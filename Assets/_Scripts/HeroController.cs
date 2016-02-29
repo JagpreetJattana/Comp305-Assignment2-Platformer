@@ -173,7 +173,7 @@ public class HeroController : MonoBehaviour
     public float jumpForce;
     public Transform groundCheck;
     public Transform camera;
-   // public GameController gameController;
+    public GameController gameController;
 
     // PRIVATE  INSTANCE VARIABLES
     private Animator _animator;
@@ -286,8 +286,21 @@ public class HeroController : MonoBehaviour
         {
             Debug.Log("death");
             this._spawn();
-           // this.gameController.LivesValue--;
+            this.gameController.LivesValue--;
         }
+
+        if (other.gameObject.CompareTag("Coin"))
+        {
+           // this._coinSound.Play();
+            Destroy(other.gameObject);
+            this.gameController.ScoreValue += 10;
+        }
+
+       /* if (other.gameObject.CompareTag("SpikedWheel"))
+        {
+           // this._hurtSound.Play();
+           // this.gameController.LivesValue--;
+        }*/
     }
 
     // PRIVATE METHODS
