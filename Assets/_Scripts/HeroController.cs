@@ -284,7 +284,7 @@ public class HeroController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Death"))
         {
-            Debug.Log("death");
+            
             this._spawn();
             this.gameController.LivesValue--;
         }
@@ -296,11 +296,13 @@ public class HeroController : MonoBehaviour
             this.gameController.ScoreValue += 10;
         }
 
-       /* if (other.gameObject.CompareTag("SpikedWheel"))
+        if (other.gameObject.CompareTag("Killer"))
         {
            // this._hurtSound.Play();
-           // this.gameController.LivesValue--;
-        }*/
+            this.gameController.LivesValue--;
+            this._spawn();
+            
+        }
     }
 
     // PRIVATE METHODS
