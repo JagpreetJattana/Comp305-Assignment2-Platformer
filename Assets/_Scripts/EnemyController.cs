@@ -26,6 +26,7 @@ public class EnemyController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        //if saw falles down the platformer
         if (other.gameObject.CompareTag("Death"))
         {
 
