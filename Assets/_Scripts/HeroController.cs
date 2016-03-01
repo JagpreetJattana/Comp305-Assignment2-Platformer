@@ -172,6 +172,7 @@ public class HeroController : MonoBehaviour
     public float moveForce;
     public float jumpForce;
     public Transform groundCheck;
+    public Transform groundCheck2;
     public Transform camera;
     public GameController gameController;
     public EnemyController enemy;
@@ -184,6 +185,7 @@ public class HeroController : MonoBehaviour
     private Transform _transform;
     private Rigidbody2D _rigidBody2D;
     private bool _isGrounded;
+    private bool _isGrounded2;
     private AudioSource[] _audioSources;
     private AudioSource _jumpSound;
     private AudioSource _coinSound;
@@ -226,6 +228,12 @@ public class HeroController : MonoBehaviour
             1 << LayerMask.NameToLayer("Ground"));
         Debug.DrawLine(this._transform.position, this.groundCheck.position);
 
+        this._isGrounded2 = Physics2D.Linecast(
+            this._transform.position,
+            this.groundCheck2.position,
+            1 << LayerMask.NameToLayer("Ground"));
+        Debug.DrawLine(this._transform.position, this.groundCheck2.position);
+
         float forceX = 0f;
         float forceY = 0f;
 
@@ -234,7 +242,7 @@ public class HeroController : MonoBehaviour
         float absVelY = Mathf.Abs(this._rigidBody2D.velocity.y);
 
         // Ensure the player is grounded before any movement checks
-        if (this._isGrounded)
+        if ((this._isGrounded)||(this._isGrounded2))
         {
             // gets a number between -1 to 1 for both Horizontal and Vertical Axes
             this._move = Input.GetAxis("Horizontal");
@@ -277,6 +285,7 @@ public class HeroController : MonoBehaviour
                 // jump force
                 if (absVelY < this.velocityRange.maximum)
                 {
+                    this._jumpSound.Play();
                     forceY = this.jumpForce;
                 }
 
